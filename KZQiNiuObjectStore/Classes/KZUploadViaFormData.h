@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KZUploadViaFormData : NSObject
 
+# pragma mark - upload file data via formdata - big memory use
+
 - (void)uploadWithData:(NSData *)data
               fileName:(NSString *)fileName
                   host:(NSString *)host

@@ -13,7 +13,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ### KZQiNiuObjectStore
 
-Upload data into QiNiu. The must parameters are *data*, *fileName*, *host*, *bucket*, *accessKey*, *secretKey*
+Upload data into QiNiu. The must parameters are **data**, **fileName**, **host**, **bucket**, **accessKey**, **secretKey**
 
 ### KZUploadToken
 
@@ -38,7 +38,7 @@ pod 'KZQiNiuObjectStore', :git => 'https://github.com/KhazanGu/KZQiNiuObjectStor
 
 ## Author
 
-KhazanGu, Khazan@foxmail.com
+Khazan Gu, Khazan@foxmail.com
 
 ## License
 

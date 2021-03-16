@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KZUploadToken : NSObject
 
+# pragma mark - generate a user authorization token
+
 + (NSString *)tokenWithBucket:(NSString *)bucket
                      fileName:(NSString *)fileName
                     accessKey:(NSString *)accessKey
