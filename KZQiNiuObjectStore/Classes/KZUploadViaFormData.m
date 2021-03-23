@@ -27,7 +27,7 @@
                failure:(void (^)(void))failure {
     
     NSString *uploadToken = [KZUploadToken tokenWithBucket:bucket fileName:fileName accessKey:accessKey secretKey:secretKey];
-
+    
     NSURL *URL = [[NSURL alloc] initWithString:host];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
     request.HTTPMethod = @"POST";

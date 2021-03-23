@@ -16,17 +16,46 @@
     // Override point for customization after application launch.
     
     NSData *data = [@"abc123" dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *fileName = @"test.log";
+    NSString *fileName = @"test3333.log";
+    
+    
     NSString *host = @"";
     NSString *bucket = @"";
     NSString *accessKey = @"";
     NSString *secretKey = @"";
+
     
-    [[[KZQiNiuObjectStore alloc] init] uploadWithData:data fileName:fileName host:host bucket:bucket accessKey:accessKey secretKey:secretKey kind:0 success:^{
-        
-    } failure:^{
-        
+    
+    [[KZQiNiuObjectStore sharedInstance] uploadDataViaFormDataWithData:data
+                                                              fileName:fileName
+                                                                  host:host
+                                                                bucket:bucket
+                                                             accessKey:accessKey
+                                                             secretKey:secretKey
+                                                               success:^{
+
+    }
+                                                               failure:^{
+
     }];
+    
+    
+    
+    
+//    [[KZQiNiuObjectStore sharedInstance] uploadDataViaPartlyWithData:data
+//                                                            fileName:fileName
+//                                                                host:host
+//                                                              bucket:bucket
+//                                                           accessKey:accessKey
+//                                                           secretKey:secretKey
+//                                                             success:^{
+//
+//    }
+//                                                             failure:^{
+//
+//    }];;
+
+    
     
     return YES;
 }

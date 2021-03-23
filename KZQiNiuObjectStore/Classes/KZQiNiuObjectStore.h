@@ -11,33 +11,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KZQiNiuObjectStore : NSObject
 
-# pragma mark - upload data
+# pragma mark - upload full data via formdata - large memory use
 
-// kind == 0, upload file data via formdata - large memory use
-// kind == 1, splite data and upload subdata - little memory use
-
-- (void)uploadWithData:(NSData *)data
-              fileName:(NSString *)fileName
-                  host:(NSString *)host
-                bucket:(NSString *)bucket
-             accessKey:(NSString *)accessKey
-             secretKey:(NSString *)secretKey
-                  kind:(NSUInteger)kind
-               success:(void (^)(void))success
-               failure:(void (^)(void))failure;
+- (void)uploadDataViaFormDataWithData:(NSData *)data
+                             fileName:(NSString *)fileName
+                                 host:(NSString *)host
+                               bucket:(NSString *)bucket
+                            accessKey:(NSString *)accessKey
+                            secretKey:(NSString *)secretKey
+                              success:(void (^)(void))success
+                              failure:(void (^)(void))failure;
 
 
-# pragma mark - splite data and upload subdata one by one - very little memory use
+# pragma mark - split data and upload at the same time - large memory use
 
-- (void)uploadWithFilePath:(NSString *)filePath
+- (void)uploadDataViaPartlyWithData:(NSData *)data
+                           fileName:(NSString *)fileName
+                               host:(NSString *)host
+                             bucket:(NSString *)bucket
+                          accessKey:(NSString *)accessKey
+                          secretKey:(NSString *)secretKey
+                            success:(void (^)(void))success
+                            failure:(void (^)(void))failure;
+
+
+# pragma mark - split file to data lump and upload one by one - very little memory use
+
+- (void)uploadFileWithPath:(NSString *)filePath
                   fileName:(NSString *)fileName
                       host:(NSString *)host
                     bucket:(NSString *)bucket
                  accessKey:(NSString *)accessKey
                  secretKey:(NSString *)secretKey
-                      kind:(NSUInteger)kind
                    success:(void (^)(void))success
                    failure:(void (^)(void))failure;
+
+
++ (KZQiNiuObjectStore *)sharedInstance;
 
 @end
 

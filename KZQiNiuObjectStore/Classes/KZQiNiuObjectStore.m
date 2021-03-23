@@ -9,61 +9,88 @@
 #import "KZUploadViaFormData.h"
 #import "KZUploadViaDataSplit.h"
 
+@interface KZQiNiuObjectStore ()
+
+@property (nonatomic, strong) KZUploadViaDataSplit *uploader;
+
+@end
+
 @implementation KZQiNiuObjectStore
 
-- (void)uploadWithData:(NSData *)data
-              fileName:(NSString *)fileName
-                  host:(NSString *)host
-                bucket:(NSString *)bucket
-             accessKey:(NSString *)accessKey
-             secretKey:(NSString *)secretKey
-                  kind:(NSUInteger)kind
-               success:(void (^)(void))success
-               failure:(void (^)(void))failure {
+- (void)uploadDataViaFormDataWithData:(NSData *)data
+                             fileName:(NSString *)fileName
+                                 host:(NSString *)host
+                               bucket:(NSString *)bucket
+                            accessKey:(NSString *)accessKey
+                            secretKey:(NSString *)secretKey
+                              success:(void (^)(void))success
+                              failure:(void (^)(void))failure {
     
-    if (kind == 0) {
-        
-        [[[KZUploadViaFormData alloc] init] uploadWithData:data
-                                                  fileName:fileName
-                                                      host:host
-                                                    bucket:bucket
-                                                 accessKey:accessKey
-                                                 secretKey:secretKey
-                                                   success:success
-                                                   failure:failure];
-        
-    } else if (kind == 1) {
-        
-        NSUInteger chunkSize = 1024*1024;
-        
-        [[[KZUploadViaDataSplit alloc] init] spliteDataAndUploadWithData:data
-                                                               chunkSize:chunkSize
-                                                                fileName:fileName
-                                                                    host:host
-                                                                  bucket:bucket
-                                                               accessKey:accessKey
-                                                               secretKey:secretKey
-                                                                 success:success
-                                                                 failure:failure];
-        
-    }
-    
+    [[[KZUploadViaFormData alloc] init] uploadWithData:data
+                                              fileName:fileName
+                                                  host:host
+                                                bucket:bucket
+                                             accessKey:accessKey
+                                             secretKey:secretKey
+                                               success:success
+                                               failure:failure];
 }
 
-- (void)uploadWithFilePath:(NSString *)filePath
+
+- (void)uploadDataViaPartlyWithData:(NSData *)data
+                           fileName:(NSString *)fileName
+                               host:(NSString *)host
+                             bucket:(NSString *)bucket
+                          accessKey:(NSString *)accessKey
+                          secretKey:(NSString *)secretKey
+                            success:(void (^)(void))success
+                            failure:(void (^)(void))failure {
+    
+    NSUInteger chunkSize = 1024 * 1024;
+    
+    [self.uploader splitDataAndUploadWithData:data
+                                    chunkSize:chunkSize
+                                     fileName:fileName
+                                         host:host
+                                       bucket:bucket
+                                    accessKey:accessKey
+                                    secretKey:secretKey
+                                      success:success
+                                      failure:failure];
+}
+
+
+- (void)uploadFileWithPath:(NSString *)filePath
                   fileName:(NSString *)fileName
                       host:(NSString *)host
                     bucket:(NSString *)bucket
                  accessKey:(NSString *)accessKey
                  secretKey:(NSString *)secretKey
-                      kind:(NSUInteger)kind
                    success:(void (^)(void))success
                    failure:(void (^)(void))failure {
     
-    NSUInteger chunkSize = 1024*1024;
+    NSUInteger chunkSize = 1024 * 1024;
     
-    [[[KZUploadViaDataSplit alloc] init] spliteDataAndUploadWithFilePath:filePath chunkSize:chunkSize fileName:fileName host:host bucket:bucket accessKey:accessKey secretKey:secretKey success:success failure:failure];
-    
+    [self.uploader readAndUploadFileInPartialWithFilePath:filePath
+                                                chunkSize:chunkSize
+                                                 fileName:fileName
+                                                     host:host
+                                                   bucket:bucket
+                                                accessKey:accessKey
+                                                secretKey:secretKey
+                                                  success:success
+                                                  failure:failure];
+}
+
+
++ (KZQiNiuObjectStore *)sharedInstance {
+    static KZQiNiuObjectStore *store = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        store = [[KZQiNiuObjectStore alloc] init];
+        store.uploader = [[KZUploadViaDataSplit alloc] init];
+    });
+    return store;
 }
 
 @end
