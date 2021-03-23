@@ -5,9 +5,6 @@
 [![License](https://img.shields.io/cocoapods/l/KZQiNiuObjectStore.svg?style=flat)](https://cocoapods.org/pods/KZQiNiuObjectStore)
 [![Platform](https://img.shields.io/cocoapods/p/KZQiNiuObjectStore.svg?style=flat)](https://cocoapods.org/pods/KZQiNiuObjectStore)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Description
 
@@ -19,28 +16,30 @@ The must parameters are **host**, **bucket**, **accessKey**, **secretKey**
 
 The customize parameters **data**, **filePath**, **fileName**,
 
-
-
 ### KZUploadToken
 
 Generate a token for user authorization
 
 ### KZUploadViaDataSplit
 
-Split data and upload
+Split data or file and upload
 
 ### KZUploadViaFormData
 
 Upload full data via formdata
 
-
 ## Requirements
+
 
 ## Installation
 
 ```
 pod 'KZQiNiuObjectStore', :git => 'https://github.com/KhazanGu/KZQiNiuObjectStore.git'
 ```
+
+## Example
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Author
 
